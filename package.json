@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "knex migrate:latest && knex seed:run",
     "dev": "cross-env NODE_ENV=development nodemon ./src/bin/server.js --exec babel-node",
     "prod": "cross-env NODE_ENV=production babel-node ./src/bin/server.js"
   },
@@ -12,15 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.16.0",
-    "bookshelf": "^0.10.3",
-    "bookshelf-cascade-delete": "^2.0.1",
     "compression": "^1.6.2",
     "config": "^1.25.1",
     "cors": "^2.8.1",
     "cross-env": "^4.0.0",
     "express": "^4.15.2",
-    "knex": "^0.12.7",
-    "mysql": "^2.13.0",
     "socket.io": "^1.7.3"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ import routes from 'routes'
 const app = express()
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-	app.use(errorhandler({log: errorNotification}))
+	app.use(errorhandler({ log: errorNotification }))
 }
 
 function errorNotification (err, str, req) {

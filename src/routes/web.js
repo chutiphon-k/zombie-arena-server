@@ -4,7 +4,7 @@ const router = Router()
 
 router.route('/')
 	.get((req, res) => {
-		res.send('Web Express Mysql Boilerplate')
+		res.send('Zombie Arena Server')
 	})
 
 export default router
