@@ -67,7 +67,14 @@ let init = (server) => {
 		socket.on('player_health', (data) => {})
 		socket.on('player_pick_item', (data) => {})
 		socket.on('wave', (data) => {})
-		socket.on('disconnect', (data) => {})
+
+		socket.on('disconnect', () => {
+			console.log(`${currentPlayer.name} recv: disconnect ${currentPlayer.name}`)
+			socket.broadcast.emit('other_player_disconnected', currentPlayer)
+			console.log(`${currentPlayer.name} bcst: other player disconnected ${currentPlayer}`)
+			let index = clients.findIndex(client => client.name === currentPlayer.name)
+			clients.splice(index, 1)
+		})
 		// socket.on('player_pick_item', (data) => {})
 		// socket.on('item', (data) => {})
 	})
