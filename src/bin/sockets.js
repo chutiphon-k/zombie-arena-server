@@ -3,6 +3,10 @@ import SocketIO from 'socket.io'
 let io
 let clients = []
 let enemies = []
+let enemyA = {
+	name: 'Enemy',
+	health: 100
+}
 let playerSpawnPoints = []
 
 let init = (server) => {
@@ -59,6 +63,13 @@ let init = (server) => {
 			console.log(`recv: move: ${JSON.stringify(data)}`)
 			currentPlayer.position = data.position
 			socket.broadcast.emit('player_move', currentPlayer)
+		})
+
+		socket.on('enemy_move', (data) => {
+			console.log(`recv: move: ${JSON.stringify(data)}`)
+			// currentPlayer.position = data.position
+			enemyA.position = data.position
+			socket.broadcast.emit('enemy_move', enemyA)
 		})
 
 		socket.on('player_shoot', (data) => {})
