@@ -55,9 +55,12 @@ let init = (server) => {
 			socket.broadcast.emit('other_player_connected', currentPlayer)
 		})
 
-		socket.on('other_player_connected', (data) => {})
-		socket.on('other_player_disconnected', (data) => {})
-		socket.on('player_move', (data) => {})
+		socket.on('player_move', (data) => {
+			console.log(`recv: move: ${JSON.stringify(data)}`)
+			currentPlayer.position = data.position
+			socket.broadcast.emit('player_move', currentPlayer)
+		})
+
 		socket.on('player_shoot', (data) => {})
 		socket.on('player_bomb', (data) => {})
 		socket.on('player_jump', (data) => {})
