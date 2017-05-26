@@ -68,8 +68,10 @@ let init = (server) => {
 		socket.on('enemy_move', (data) => {
 			console.log(`recv: move: ${JSON.stringify(data)}`)
 			// currentPlayer.position = data.position
-			enemyA.position = data.position
-			socket.broadcast.emit('enemy_move', enemyA)
+			// enemyA.position = data.position
+			let e = enemies.find(enemy => enemy.name === data.name)
+			e.position = data.position
+			socket.broadcast.emit('enemy_move', e)
 		})
 
 		socket.on('player_shoot', (data) => {})
