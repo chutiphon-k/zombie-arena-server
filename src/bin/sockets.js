@@ -1,13 +1,12 @@
 import SocketIO from 'socket.io'
+import firebase from 'firebase'
 
 let io
 let clients = []
 let enemies = []
-let enemyA = {
-	name: 'Enemy',
-	health: 100
-}
 let playerSpawnPoints = []
+
+let history = firebase.database().ref(`history`)
 
 let init = (server) => {
 	io = new SocketIO(server)
@@ -15,6 +14,15 @@ let init = (server) => {
 		console.log('connected')
 		let currentPlayer = {}
 		currentPlayer.name = 'unknown'
+
+		history.on('value', (snapshots) => {
+			const result = []
+			snapshots.forEach((snapshot) => {
+				result.push(snapshot.val())
+			})
+			let ranking = result.sort((a, b) => b.score - a.score).slice(0, 10)
+			socket.emit('ranking', ranking)
+		})
 
 		socket.on('player_connect', () => {
 			console.log(`${currentPlayer.name} on: player connect`)

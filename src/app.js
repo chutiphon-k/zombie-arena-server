@@ -4,10 +4,21 @@ import nodeNotifier from 'node-notifier'
 import errorhandler from 'errorhandler'
 import compression from 'compression'
 import cors from 'cors'
+import firebase from 'firebase'
 
 import routes from 'routes'
 
 const app = express()
+
+const config = {
+	apiKey: 'AIzaSyAF_cWtyt14TosvtTRSCUrbJcBHDNi9qgc',
+	authDomain: 'zombie-arena.firebaseapp.com',
+	databaseURL: 'https://zombie-arena.firebaseio.com',
+	projectId: 'zombie-arena',
+	storageBucket: 'zombie-arena.appspot.com',
+	messagingSenderId: '781887455661'
+}
+firebase.initializeApp(config)
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
 	app.use(errorhandler({ log: errorNotification }))
