@@ -27,24 +27,24 @@ let init = (server) => {
 		socket.on('play', (data) => {
 			console.log(`${currentPlayer.name} recv: play:: ${JSON.stringify(data)}`)
 			if (clients.length === 0) {
-				// enemies = []
-				// data.enemySpawnPoints.map((enemySpawnPoint) => {
-				// 	enemies.push({
-				// 		name: Math.random().toString(36).substring(7),
-				// 		position: enemySpawnPoint.position,
-				// 		rotation: enemySpawnPoint.rotation,
-				// 		health: 100
-				// 	})
-				// })
+				enemies = []
+				data.enemySpawnPoints.map((enemySpawnPoint) => {
+					enemies.push({
+						name: Math.random().toString(36).substring(7),
+						position: enemySpawnPoint.position,
+						rotation: enemySpawnPoint.rotation,
+						health: 100
+					})
+				})
 				playerSpawnPoints = []
 				data.playerSpawnPoints.map((_playerSpawnPoint) => {
 					let { position, rotation } = _playerSpawnPoint
 					playerSpawnPoints.push({ position, rotation })
 				})
 			}
-			// let enemiesResponse = { enemies }
-			// console.log(`${currentPlayer.name} emit: enemies: ${JSON.stringify(enemiesResponse)}`)
-			// socket.emit('enemies', enemiesResponse)
+			let enemiesResponse = { enemies }
+			console.log(`${currentPlayer.name} emit: enemies: ${JSON.stringify(enemiesResponse)}`)
+			socket.emit('enemies', enemiesResponse)
 			let randomSpawnPoint = playerSpawnPoints[Math.floor(Math.random() * playerSpawnPoints.length)]
 			let { position, rotation } = randomSpawnPoint
 			currentPlayer = {
