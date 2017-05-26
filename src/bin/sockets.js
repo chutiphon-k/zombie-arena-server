@@ -39,14 +39,6 @@ let init = (server) => {
 						health: 100
 					})
 				}
-				// data.enemySpawnPoints.map((enemySpawnPoint) => {
-				// 	enemies.push({
-				// 		name: Math.random().toString(36).substring(7),
-				// 		position: enemySpawnPoint.position,
-				// 		rotation: enemySpawnPoint.rotation,
-				// 		health: 100
-				// 	})
-				// })
 				playerSpawnPoints = []
 				data.playerSpawnPoints.map((_playerSpawnPoint) => {
 					let { position, rotation } = _playerSpawnPoint
@@ -87,7 +79,15 @@ let init = (server) => {
 
 		socket.on('player_shoot', (data) => {})
 		socket.on('player_bomb', (data) => {})
-		socket.on('player_jump', (data) => {})
+		socket.on('player_action', (data) => {
+			console.log(`${currentPlayer.name} recv: action`)
+			let value = {
+				name: currentPlayer.name,
+				type: data.type
+			}
+			socket.emit('player_action', value)
+			socket.broadcast.emit('player_action', value)
+		})
 		socket.on('player_health', (data) => {})
 		socket.on('player_pick_item', (data) => {})
 		socket.on('wave', (data) => {})
