@@ -116,7 +116,7 @@ let init = (server) => {
 				position,
 				rotation,
 				health: 100,
-				isDead: false
+				isDeath: false
 			}
 			clients.push(currentPlayer)
 			console.log(`${currentPlayer.name} emit: play: ${JSON.stringify(currentPlayer)}`)
@@ -221,9 +221,12 @@ let init = (server) => {
 
 		socket.on('dead', (data) => {
 			clients = clients.map(client => {
-				client.isDeath = true
+				if (currentPlayer.name === data.name) {
+					client.isDeath = true
+				}
 				return client
 			})
+			console.log(clients)
 			if (clients.filter(client => client.isDeath === false).length === 0) {
 				socket.emit('end', { score })
 				history.once('value')
